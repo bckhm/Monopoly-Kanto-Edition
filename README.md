@@ -3,7 +3,7 @@
 
 A simple multiplayer Monopoly simulator built in Python, all in the context of the Kanto region in Pokemon  
   
-Developed in practice of Object-Oriented Programming and Circular Linked Lists
+Developed in practice of *Object-Oriented Programming* and *Circular Linked Lists*
 
 
 ### Requirements 
@@ -23,7 +23,13 @@ The last player standing wins the game!
 3. Input player names
 4. Roll the dice by pressing ENTER when its your turn
 5. If a place is for sale, an option will appear to buy it. Input Y to do so.
-5. Bankrupt other players and **WIN THE GAME!**
+5. Bankrupt other players and **WIN THE GAME!**  
+
+## Rules of the game
+• Each tile can only be owned by 1 player  
+• Being on a tile owned by another player will result in rent being paid  
+• Income Tax and Super tax tiles will deduct money  
+• If a player goes bankrupt, they will be removed from the game, and so will their ownership of tiles
 
 
 

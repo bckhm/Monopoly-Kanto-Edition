@@ -219,15 +219,7 @@ class Board:
 
 
 
-'''start = board.root
-for i in range(41):
-    print(f'{start}', end = '->')
-    start = start.next'''
 
-#Added StatusChange function
-#Added StatusChange in move
-#Fixed creATEBoard
-#Added Jail, Go to Jail, taxes functions
 
 
 

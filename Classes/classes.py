@@ -18,7 +18,7 @@ class Tile:
         if self.position in special_tiles:
             return False
         else:
-            if self.owner != None:
+            if self.owner is not None:
                 print(f'{self.name}\nTile Number: {self.position}\nCost: ${self.cost}\nRent: ${self.rent}\nOwned by: {self.owner.name}')
             else:
                 print(
@@ -64,10 +64,9 @@ class Player:
             elif self.tile.position == 21:
                 self.status = 'is healing up...'
             print(f'{self.name} {self.status}')
-            return True
         else:
             self.status = None
-            return False
+
 
     # Function that apply effects to player based on the special tile they are on, except for Jail
     def StatusEffects(self):
@@ -92,9 +91,7 @@ class Player:
                 pass
             # Nothing happens if player is in Pokemon Center
             elif self.status == 'is healing up...':
-                return False
-        else:
-            return False
+                pass
 
     # Function that checks if player is in Jail, and deducts $50 if so
     def CheckJail(self):
@@ -103,16 +100,14 @@ class Player:
             self.deduct_money(50)
             print('$50 has been deducted from your bank account. You are now PRISON-FREE!')
             # Check if player is bankrupt
-            self.WinOrLose()
-            return True
-        else:
-            return False
+            self.HasLost()
+
 
     def __str__(self):
         return f'{self.name}'
 
     # Function that checks if player is bankrupt, and if so game ends
-    def WinOrLose(self):
+    def HasLost(self):
         if self.money < 0:
             print(f'{self.name} is bankrupt and has lost!')
             return True
@@ -203,7 +198,7 @@ class Board:
 
     # Checks if player is owner of the current tile their own, transfers rent amount from their bank to owner's bank
     def rent_pay(self, player):
-        if player.tile.owner != None and player.tile.owner != player:
+        if player.tile.owner is not None and player.tile.owner != player:
             player.deduct_money(player.tile.rent)
             player.tile.owner.add_money(player.tile.rent)
             print(f'--------------------------------\nOops! You paid ${player.tile.rent} to {player.tile.owner.name} as rent ')
@@ -215,6 +210,23 @@ class Board:
             gameTile = Tile(name = tile[0], position = tile[2] + 1, cost = tile[1])
             tile_list.append(gameTile)
         return tile_list
+
+    # Function that allows for creation of players, including player number and player names
+    def createPlayers(self, no_of_players):
+        all_players = []
+        for i in range(no_of_players):
+            print(f'\nPlayer {i + 1}\n--------')
+            player_name = input('Name: ')
+            player_class = Player(name=player_name, player_no=i + 1, tile=self.root)
+            all_players.append(player_class)
+        return all_players
+
+    # Creates a board based on tile_list from classes
+    def createBoard(self):
+        tile_list = self.createBoard_List()
+        for tile in tile_list:
+            self.add(tile)
+
 
 
 

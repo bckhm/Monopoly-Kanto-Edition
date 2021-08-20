@@ -2,6 +2,8 @@ import random
 import re
 import time
 
+special_tiles = [3, 5, 8, 11, 18, 21, 23, 31, 34, 37, 39]
+
 # Tile class containing data of each tile on the gameboard
 class Tile:
     def __init__(self, name = None, position = None, cost = 0, owner = None, next = None):
@@ -13,16 +15,12 @@ class Tile:
         self.next = next
 
     # Function that prints out details of a specific tile
-    def show_Details(self, special_tiles = [3, 5, 8, 11, 18, 21, 23, 31, 34, 37, 39]):
+    def show_Details(self):
         # Check if tile is a special tile(unbuyable e.g. Jail)
         if self.position in special_tiles:
-            return False
-        else:
-            if self.owner is not None:
-                print(f'{self.name}\nTile Number: {self.position}\nCost: ${self.cost}\nRent: ${self.rent}\nOwned by: {self.owner.name}')
-            else:
-                print(
-                    f'{self.name}\nTile Number: {self.position}\nCost: ${self.cost}\nRent: ${self.rent}\nOwned by: {self.owner}')
+            return
+        print(f'{self.name}\nTile Number: {self.position}\nCost: ${self.cost}\nRent: ${self.rent}\nOwned by: {self.owner}')
+
 
     def __str__(self):
         return str(f'({self.name})')
@@ -46,7 +44,7 @@ class Player:
         return dice_no
 
     # Function that checks if a player is on a special tile and changes player status accordingly
-    def StatusChange(self, special_tiles = [3, 5, 8, 11, 18, 21, 23, 31, 34, 37, 39]):
+    def StatusChange(self):
         if self.tile.position in special_tiles:
             # If in Jail
             if self.tile.position in [11, 31]:
@@ -82,7 +80,7 @@ class Player:
                     self.deduct_money(100)
                     print(f'$100 has been deducted from {self.name}\'s bank account as super tax!')
                 # Check if bank account is negative, and if so game over
-                self.WinOrLose()
+                self.HasLost()
             elif self.status == 'got a Chance Card!':
                 # Add chance function
                 pass
@@ -178,7 +176,7 @@ class Board:
             player.steps -= 40
 
     # Function that allows players to own a tile if eligible
-    def buy(self, player, special_tiles = [3, 5, 8, 11, 18, 21, 23, 31, 34, 37, 39]):
+    def buy(self, player):
         # No option to buy if on a special tile
             if player.tile.position in special_tiles:
                 return False

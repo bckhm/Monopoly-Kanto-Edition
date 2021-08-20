@@ -13,10 +13,10 @@ print('MONOPOLY SIMULATION v1.0\n------------------------')
 while True:
     try:
         no_of_players = int(input('No. of Players: '))
+        break
     except ValueError:
         print('You did not enter a number!')
-    else:
-        break
+
 
 board = classes.Board()
 board.createBoard()
@@ -49,10 +49,7 @@ while not checkWinner(all_players):
             # Removes all tile ownership
             board.remove_Owner(player)
             all_players.remove(player)
-    # Check if there's only one player left and if so, end the game
-    '''if checkWinner(all_players) == True:
-        break'''
-
+# Check if there's only one player left and if so, end the game
 time.sleep(0.5)
 print(all_players[0].name, 'won!')
 exit = input('Press ENTER to exit the game...')
